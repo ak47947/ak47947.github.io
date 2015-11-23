@@ -1,0 +1,498 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>ngrok：微信公众号接口本地调试 | 白云飞的blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="白云飞">
+    
+
+    
+    <meta name="description" content="在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，ngrok是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ngrok：微信公众号接口本地调试">
+<meta property="og:url" content="http://mbnow.tk/2014/12/05/ngrok/index.html">
+<meta property="og:site_name" content="白云飞的blog">
+<meta property="og:description" content="在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，ngrok是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img1.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img2.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img3.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img4.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img5.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img6.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img7.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img8.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img9.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img10.jpg">
+<meta property="og:image" content="http://mbnow.tk/img/ngrok_img11.jpg">
+<meta property="og:updated_time" content="2015-11-12T03:41:36.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ngrok：微信公众号接口本地调试">
+<meta name="twitter:description" content="在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，ngrok是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="白云飞的blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="白云飞的blog" title="白云飞的blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="白云飞的blog">白云飞的blog</a></h1>
+				<h2 class="blog-motto">Stay hungry, Stay foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">存档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:mbnow.tk">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/05/ngrok/" title="ngrok：微信公众号接口本地调试" itemprop="url">ngrok：微信公众号接口本地调试</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="白云飞" target="_blank" itemprop="author">白云飞</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-05T07:39:37.000Z" itemprop="datePublished"> 发表于 2014-12-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本篇：快速开始"><span class="toc-number">1.</span> <span class="toc-text">基本篇：快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步：下载ngrok"><span class="toc-number">1.0.1.</span> <span class="toc-text">第一步：下载ngrok</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步：启动本地应用"><span class="toc-number">1.0.2.</span> <span class="toc-text">第二步：启动本地应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步：运行ngrok"><span class="toc-number">1.0.3.</span> <span class="toc-text">第三步：运行ngrok</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步：外网访问应用"><span class="toc-number">1.0.4.</span> <span class="toc-text">第四步：外网访问应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高级篇：定制子域名"><span class="toc-number">2.</span> <span class="toc-text">高级篇：定制子域名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步：注册并登录获取授权码"><span class="toc-number">2.0.1.</span> <span class="toc-text">第一步：注册并登录获取授权码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步：为ngrok添加authtoken"><span class="toc-number">2.0.2.</span> <span class="toc-text">第二步：为ngrok添加authtoken</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步：为ngrok定制子域名"><span class="toc-number">2.0.3.</span> <span class="toc-text">第三步：为ngrok定制子域名</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，<strong>ngrok</strong>是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。<a id="more"></a></p>
+<h1 id="基本篇：快速开始">基本篇：快速开始</h1><h3 id="第一步：下载ngrok">第一步：下载ngrok</h3><p>官网下载：<a href="https://ngrok.com/download" target="_blank" rel="external">https://ngrok.com/download</a>，然后选择自己所需的版本（我的是windows）.<br><img src="/img/ngrok_img1.jpg" alt=""></p>
+<h3 id="第二步：启动本地应用">第二步：启动本地应用</h3><p>譬如在你本机80端口启动tomcat,首先保证本地可以访问你的应用。<br><img src="/img/ngrok_img2.jpg" alt=""></p>
+<h3 id="第三步：运行ngrok">第三步：运行ngrok</h3><p>解压下载的的ngrok压缩包，得到ngrok.exe，cmd到可执行文件目录，输入：<code>ngrok 80</code>，回车运行，看到如下图结果即运行成功。<br><img src="/img/ngrok_img3.jpg" alt=""><br><img src="/img/ngrok_img4.jpg" alt=""></p>
+<h3 id="第四步：外网访问应用">第四步：外网访问应用</h3><p>访问上面生成的网址<a href="https://54de4ee4.ngrok.com" target="_blank" rel="external">https://54de4ee4.ngrok.com</a>或者<a href="http://54de4ee4.ngrok.com" target="_blank" rel="external">http://54de4ee4.ngrok.com</a> 试试，是不是已经将你的应用映射到外网了，而且还是http和https两种类型。<br><img src="/img/ngrok_img5.jpg" alt=""></p>
+<h1 id="高级篇：定制子域名">高级篇：定制子域名</h1><h3 id="第一步：注册并登录获取授权码">第一步：注册并登录获取授权码</h3><p>进入<a href="https://ngrok.com/user/signup" target="_blank" rel="external">https://ngrok.com/user/signup</a>，填写信息进行注册，登录后会看到有一个授权码。<br><img src="/img/ngrok_img6.jpg" alt=""><br><img src="/img/ngrok_img7.jpg" alt=""></p>
+<h3 id="第二步：为ngrok添加authtoken">第二步：为ngrok添加authtoken</h3><p>cmd到ngrok.exe文件目录，输入：<code>ngrok -authtoken your_key 80</code>，其中your_key为你上面复制的授权码，回车运行，如下图所示。<br><img src="/img/ngrok_img8.jpg" alt=""><br><img src="/img/ngrok_img9.jpg" alt=""></p>
+<h3 id="第三步：为ngrok定制子域名">第三步：为ngrok定制子域名</h3><p>按ctrl+c返回，输入：<code>ngrok -subdomain=wxent 80</code>,回车运行，如下图所示。<br><img src="/img/ngrok_img10.jpg" alt=""><br><img src="/img/ngrok_img11.jpg" alt=""></p>
+<p>访问下你定制的子域名试试！<br>下次启动时，只需再次输入命令：<code>ngrok -subdomain=wxent 80</code>即可，无需再次添加authtoken，我的已经OK了，你的可以访问了吗？</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/微信开发/">微信开发</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/微信开发/">微信开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://mbnow.tk/2014/12/05/ngrok/" data-title="ngrok：微信公众号接口本地调试 | 白云飞的blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/12/05/chrome-plugin/" title="常用的chrome插件">
+  <strong>上一篇：</strong><br/>
+  <span>
+  常用的chrome插件</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/05/07/interface-log-3/"  title="webservice接口调用日志：（三）注解生成接口调用日志">
+ <strong>下一篇：</strong><br/> 
+ <span>webservice接口调用日志：（三）注解生成接口调用日志
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/12/05/ngrok/" data-title="ngrok：微信公众号接口本地调试" data-url="http://mbnow.tk/2014/12/05/ngrok/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本篇：快速开始"><span class="toc-number">1.</span> <span class="toc-text">基本篇：快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步：下载ngrok"><span class="toc-number">1.0.1.</span> <span class="toc-text">第一步：下载ngrok</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步：启动本地应用"><span class="toc-number">1.0.2.</span> <span class="toc-text">第二步：启动本地应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步：运行ngrok"><span class="toc-number">1.0.3.</span> <span class="toc-text">第三步：运行ngrok</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步：外网访问应用"><span class="toc-number">1.0.4.</span> <span class="toc-text">第四步：外网访问应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高级篇：定制子域名"><span class="toc-number">2.</span> <span class="toc-text">高级篇：定制子域名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步：注册并登录获取授权码"><span class="toc-number">2.0.1.</span> <span class="toc-text">第一步：注册并登录获取授权码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步：为ngrok添加authtoken"><span class="toc-number">2.0.2.</span> <span class="toc-text">第二步：为ngrok添加authtoken</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步：为ngrok定制子域名"><span class="toc-number">2.0.3.</span> <span class="toc-text">第三步：为ngrok定制子域名</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/IT杂谈/" title="IT杂谈">IT杂谈<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/微信开发/" title="微信开发">微信开发<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/log4j，日志/" title="log4j，日志">log4j，日志<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IT杂谈/" title="IT杂谈">IT杂谈<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信开发/" title="微信开发">微信开发<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据存储/" title="数据存储">数据存储<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/接口，日志/" title="接口，日志">接口，日志<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m LuoChengWei. For now I&#39;m a coder in GuangZhou. <br/>
+			I&#39;ll share my working experience with you at this blog</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> © 2015 
+		
+		<a href="/about" target="_blank" title="白云飞">白云飞</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"baiyunfei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

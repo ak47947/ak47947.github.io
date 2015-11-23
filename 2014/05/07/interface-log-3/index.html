@@ -1,0 +1,498 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>webservice接口调用日志：（三）注解生成接口调用日志 | 白云飞的blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="白云飞">
+    
+
+    
+    <meta name="description" content="考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webservice接口调用日志：（三）注解生成接口调用日志">
+<meta property="og:url" content="http://mbnow.tk/2014/05/07/interface-log-3/index.html">
+<meta property="og:site_name" content="白云飞的blog">
+<meta property="og:description" content="考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。">
+<meta property="og:image" content="http://mbnow.tk/img/interface-log-3_img1.png">
+<meta property="og:updated_time" content="2015-11-12T03:41:36.764Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webservice接口调用日志：（三）注解生成接口调用日志">
+<meta name="twitter:description" content="考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="白云飞的blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="白云飞的blog" title="白云飞的blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="白云飞的blog">白云飞的blog</a></h1>
+				<h2 class="blog-motto">Stay hungry, Stay foolish.</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">存档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:mbnow.tk">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/07/interface-log-3/" title="webservice接口调用日志：（三）注解生成接口调用日志" itemprop="url">webservice接口调用日志：（三）注解生成接口调用日志</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="白云飞" target="_blank" itemprop="author">白云飞</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-07T06:17:07.000Z" itemprop="datePublished"> 发表于 2014-05-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_启用@AspectJ支持"><span class="toc-number">1.</span> <span class="toc-text">1. 启用@AspectJ支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_编写自定义注解"><span class="toc-number">2.</span> <span class="toc-text">2. 编写自定义注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_编写操作日志切面通知实现类"><span class="toc-number">3.</span> <span class="toc-text">3. 编写操作日志切面通知实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_使用注解标注需要记录日志的接口"><span class="toc-number">4.</span> <span class="toc-text">4. 使用注解标注需要记录日志的接口</span></a></li></ol>
+		
+		</div>
+		
+		<p>考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。<a id="more"></a></p>
+<h3 id="1-_启用@AspectJ支持">1. 启用@AspectJ支持</h3><p>在你的工程lib目录下添加<code>aspectjweaver.jar</code>和<code>aspectjrt.jar</code>并在spring 的配置文件中添加如下代码：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;aop:aspectj-autoproxy/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此步完成了@AspectJ的支持，从而可以实现通过注解方式将通知编织到非公共方法中。但是在添加时还要注意在Spring配置文件的命名空间中添加aop支持。</p>
+<p><img src="/img/interface-log-3_img1.png" alt=""></p>
+<h3 id="2-_编写自定义注解">2. 编写自定义注解</h3><p>实现对方法所实现的功能进行描述，以便在通知中获取描述信息，代码如下：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> 接口调用日志注解</span><br><span class="line"> <span class="keyword">*</span> </span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author lcw</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line"><span class="comment">@Target(&#123;ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="comment">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">@Documented</span></span><br><span class="line">public <span class="comment">@interface WsLog &#123;</span></span><br><span class="line">	</span><br><span class="line">	/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">	 <span class="keyword">*</span> 接口功能项说明</span><br><span class="line">	 <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">	 <span class="keyword">*</span>/</span><br><span class="line">	String desc() default <span class="string">"无描述信息"</span>;</span><br><span class="line">	</span><br><span class="line">	/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">	 <span class="keyword">*</span> 此接口调用失败时对应的错误级别。</span><br><span class="line">	 <span class="keyword">*</span> 0:正常；1:警告；2错误；3严重错误；（4和5备用扩展）。</span><br><span class="line">	 <span class="keyword">*</span> 默认错误等级为2</span><br><span class="line">	 <span class="keyword">*</span> </span><br><span class="line">	 <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">	 <span class="keyword">*</span>/</span><br><span class="line">	String errLevel() default <span class="string">"2"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-_编写操作日志切面通知实现类">3. 编写操作日志切面通知实现类</h3><p>在编写切面通知实现类之前，我们需要搞清楚我们需要哪些通知类型，是前置通知、后置通知、环绕通知或异常通知？根据我的需求，我们知道我们记录的操作日志有两种情况，一种是操作成功，一种是操作失败。操作成功时则方法肯定已经执行完成，故我们需要实现一个后置通知；操作失败时则说明方法出现异常无法正常执行完成，故还需要一个异常通知。因此我们就需要实现这两个通知即可。代码如下：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * AOP日志实现类</span><br><span class="line"> * </span><br><span class="line"> * @author lcw</span><br><span class="line"> */</span></span><br><span class="line">@Aspect</span><br><span class="line">@Component</span><br><span class="line">public class WsLogAspect &#123;</span><br><span class="line">	</span><br><span class="line">	private static Log wsLogger = LogFactory.getLog<span class="params">(<span class="string">"webServiceLog"</span>)</span>;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 采用后置通知方式，目标方法执行成功后执行</span><br><span class="line">	 * @param jp</span><br><span class="line">	 * @param wl</span><br><span class="line">	 */</span></span><br><span class="line">	@AfterReturning<span class="params">(<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>)</span></span><br><span class="line">	public void successLog<span class="params">(JoinPoint jp, WsLog wl)</span>&#123;</span><br><span class="line">		Object[] parames = jp.getArgs<span class="params">()</span>;								<span class="comment">//获取目标方法体参数</span></span><br><span class="line">		String className = jp.getTarget<span class="params">()</span>.getClass<span class="params">()</span>.toString<span class="params">()</span>;		<span class="comment">//获取目标类名</span></span><br><span class="line">		className = className.substring<span class="params">(className.indexOf<span class="params">(<span class="string">"com"</span>)</span>)</span>;</span><br><span class="line">		String signature = jp.getSignature<span class="params">()</span>.toString<span class="params">()</span>;				<span class="comment">//获取目标方法签名</span></span><br><span class="line">		String methodName = signature.substring<span class="params">(signature.lastIndexOf<span class="params">(<span class="string">"."</span>)</span>+<span class="number">1</span>, signature.indexOf<span class="params">(<span class="string">"("</span>)</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		WsLogVO logvo = new WsLogVO<span class="params">()</span>;</span><br><span class="line">		logvo.setClassName<span class="params">(className)</span>;</span><br><span class="line">		logvo.setMethodName<span class="params">(methodName)</span>;</span><br><span class="line">		logvo.setArgument<span class="params">(JsonMapper.getInstance<span class="params">()</span>.toJson<span class="params">(parames)</span>)</span>;<span class="comment">//解析目标方法体的参数</span></span><br><span class="line">		logvo.setDescription<span class="params">(wl.desc<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setOperationTime<span class="params">(DateUtils.getDateTime<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setResult<span class="params">(<span class="string">"0"</span>)</span>;</span><br><span class="line">		logvo.setErrorLevel<span class="params">(<span class="string">"0"</span>)</span>;</span><br><span class="line">		logvo.setErrorMsg<span class="params">(<span class="string">""</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		outputLog<span class="params">(logvo)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 异常通知方式，当目标方法出现异常时执行</span><br><span class="line">	 * </span><br><span class="line">	 * @param jp</span><br><span class="line">	 * @param wl</span><br><span class="line">	 * @param ex</span><br><span class="line">	 */</span></span><br><span class="line">	@AfterThrowing<span class="params">(pointcut=<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>, throwing=<span class="string">"ex"</span>)</span></span><br><span class="line">	public void throwLog<span class="params">(JoinPoint jp, WsLog wl, Exception ex)</span>&#123;</span><br><span class="line">		Object[] parames = jp.getArgs<span class="params">()</span>;</span><br><span class="line">		String className = jp.getTarget<span class="params">()</span>.getClass<span class="params">()</span>.toString<span class="params">()</span>;</span><br><span class="line">		className = className.substring<span class="params">(className.indexOf<span class="params">(<span class="string">"com"</span>)</span>)</span>;</span><br><span class="line">		String signature = jp.getSignature<span class="params">()</span>.toString<span class="params">()</span>;</span><br><span class="line">		String methodName = signature.substring<span class="params">(signature.lastIndexOf<span class="params">(<span class="string">"."</span>)</span>+<span class="number">1</span>, signature.indexOf<span class="params">(<span class="string">"("</span>)</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		WsLogVO logvo = new WsLogVO<span class="params">()</span>;</span><br><span class="line">		logvo.setClassName<span class="params">(className)</span>;</span><br><span class="line">		logvo.setMethodName<span class="params">(methodName)</span>;</span><br><span class="line">		logvo.setArgument<span class="params">(JsonMapper.getInstance<span class="params">()</span>.toJson<span class="params">(parames)</span>)</span>;</span><br><span class="line">		logvo.setDescription<span class="params">(wl.desc<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setOperationTime<span class="params">(DateUtils.getDateTime<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setResult<span class="params">(<span class="string">"1"</span>)</span>;</span><br><span class="line">		logvo.setErrorLevel<span class="params">(<span class="string">"2"</span>)</span>;</span><br><span class="line">		logvo.setErrorMsg<span class="params">(ex.getMessage<span class="params">()</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		outputLog<span class="params">(logvo)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 按统一日志格式输出日志</span><br><span class="line">	 * </span><br><span class="line">	 * </span><br><span class="line">	 * 日志输出格式说明：调用接口名称|接口参数|调用时间|调用结果|错误等级|接口说明</span><br><span class="line">	 * 调用结果：0:成功；1:失败</span><br><span class="line">	 * 错误等级：0:正常；1:警告；2错误；3严重错误。（4和5备用扩展）。</span><br><span class="line">	 * </span><br><span class="line">	 * @param logvo</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	private void outputLog<span class="params">(WsLogVO logvo)</span> &#123;</span><br><span class="line">		StringBuffer logStr = new StringBuffer<span class="params">()</span>;</span><br><span class="line">		logStr.append<span class="params">(logvo.getClassName<span class="params">()</span> + <span class="string">"."</span> + logvo.getMethodName<span class="params">()</span> + <span class="string">"()"</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>	<span class="comment">//调用接口类及接口名称</span></span><br><span class="line">			.append<span class="params">(logvo.getArgument<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>											<span class="comment">//接口参数</span></span><br><span class="line">			.append<span class="params">(logvo.getOperationTime<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>										<span class="comment">//调用时间</span></span><br><span class="line">			.append<span class="params">(logvo.getResult<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>												<span class="comment">//调用结果</span></span><br><span class="line">			.append<span class="params">(logvo.getErrorLevel<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>											<span class="comment">//错误等级</span></span><br><span class="line">			.append<span class="params">(logvo.getDescription<span class="params">()</span>)</span>;													<span class="comment">//说明</span></span><br><span class="line">		</span><br><span class="line">		wsLogger.info<span class="params">(logStr.toString<span class="params">()</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看上面的代码会发现这两个方法体：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">AfterReturning</span>(<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>)</span><br><span class="line">public <span class="type">void</span> successLog(<span class="type">JoinPoint</span> jp, <span class="type">WsLog</span> wl)<span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">AfterThrowing</span>(pointcut=<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>, throwing=<span class="string">"ex"</span>)</span><br><span class="line">public <span class="type">void</span> throwLog(<span class="type">JoinPoint</span> jp, <span class="type">WsLog</span> wl, <span class="type">Exception</span> ex)<span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这两个方法体分别是后置通知和异常通知的实现。它们有两个相同的参数jp和wl，jp是切点对象，通过该对象可以获取切点所切入方法所在的类，方法名、参数等信息，具体方法可以看方法体的实现；wl则是我们的自定义注解的对象，通过该对象我们可以获取注解中参数值，从而获取方法的描述信息。在异常通知中多出了一个ex参数，该参数是方法执行时所抛出的异常，从而可以获取相应的异常信息。此处可以自定义异常。注意：如果指定异常参数，则异常对象必须与通知所切入的方法体抛出的异常保持一致，否则该通知不会执行。</p>
+<p><code>successLog</code>方法签名上的@AfterReturning(“within(com.openeap.modules..*) &amp;&amp; @annotation(wl)”)注解，是指定该方法体为后置通知，其有一个表达式参数，用来检索符合条件的切点。该表达式指定com/openeap/modules目录下及其所有子目录下的所有带有@WsLog注解的方法体为切点。</p>
+<p><code>throwLog</code>方法签名上的@AfterThrowing(pointcut=”within(com.openeap.modules..*) &amp;&amp; @annotation(wl)”, throwing=”ex”)注解，是指定方法体为异常通知，其有一个表达式参数和一个抛出异常参数。表达式参数与后置通知的表达式参数含义相同，而抛出异常参数，则表示如果com/openeap/modules目录下及其所有子目录下的所有带有@WsLog注解的方法体在执行时抛出异常时该通知便会执行。</p>
+<p>获取前面配置的log4j配置生成日志文件，对接口调用日志文件进行输出：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Log wsLogger = LogFactory.getLog(<span class="string">"webServiceLog"</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-_使用注解标注需要记录日志的接口">4. 使用注解标注需要记录日志的接口</h3><p>在com/openeap/modules目录下及其所有子目录下任意找到一个service层的某个类的方法或者webservice中的服务方法，在其方法体上添加@WsLog(desc=”描述信息”)即可。代码如下：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">WsLog</span>(desc=<span class="string">"创建用户"</span>)</span><br><span class="line">public <span class="type">GetUserResult</span> getUser(<span class="type">Long</span> id) <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>最终日志生成结果如下：</p>
+<pre><code>com.openeap.modules.demo.webservice.soap.AccountSoapServiceImpl.getUser()|<span class="string">[1]</span>|<span class="string">2014-05-07 11:32:45</span>|<span class="string">0</span>|<span class="string">0</span>|<span class="string">创建用户</span>
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log4j，日志/">log4j，日志</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://mbnow.tk/2014/05/07/interface-log-3/" data-title="webservice接口调用日志：（三）注解生成接口调用日志 | 白云飞的blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/12/05/ngrok/" title="ngrok：微信公众号接口本地调试">
+  <strong>上一篇：</strong><br/>
+  <span>
+  ngrok：微信公众号接口本地调试</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/05/07/interface-log-2/"  title="webservice接口调用日志：（二）log4j生成单独日志文件">
+ <strong>下一篇：</strong><br/> 
+ <span>webservice接口调用日志：（二）log4j生成单独日志文件
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/05/07/interface-log-3/" data-title="webservice接口调用日志：（三）注解生成接口调用日志" data-url="http://mbnow.tk/2014/05/07/interface-log-3/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_启用@AspectJ支持"><span class="toc-number">1.</span> <span class="toc-text">1. 启用@AspectJ支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_编写自定义注解"><span class="toc-number">2.</span> <span class="toc-text">2. 编写自定义注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_编写操作日志切面通知实现类"><span class="toc-number">3.</span> <span class="toc-text">3. 编写操作日志切面通知实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_使用注解标注需要记录日志的接口"><span class="toc-number">4.</span> <span class="toc-text">4. 使用注解标注需要记录日志的接口</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/IT杂谈/" title="IT杂谈">IT杂谈<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/微信开发/" title="微信开发">微信开发<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/log4j，日志/" title="log4j，日志">log4j，日志<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/IT杂谈/" title="IT杂谈">IT杂谈<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/微信开发/" title="微信开发">微信开发<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据存储/" title="数据存储">数据存储<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/接口，日志/" title="接口，日志">接口，日志<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/网络/" title="网络">网络<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m LuoChengWei. For now I&#39;m a coder in GuangZhou. <br/>
+			I&#39;ll share my working experience with you at this blog</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> © 2015 
+		
+		<a href="/about" target="_blank" title="白云飞">白云飞</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"baiyunfei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

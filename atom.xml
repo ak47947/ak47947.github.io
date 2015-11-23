@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[白云飞的blog]]></title>
+  <subtitle><![CDATA[Stay hungry, Stay foolish.]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://mbnow.tk//"/>
+  <updated>2015-11-23T13:43:09.617Z</updated>
+  <id>http://mbnow.tk//</id>
+  
+  <author>
+    <name><![CDATA[白云飞]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Navicat for Oracle 创建表空间、用户、权限赋予]]></title>
+    <link href="http://mbnow.tk/2015/11/23/navicat-oracle-createdb/"/>
+    <id>http://mbnow.tk/2015/11/23/navicat-oracle-createdb/</id>
+    <published>2015-11-23T07:57:53.000Z</published>
+    <updated>2015-11-23T13:43:09.617Z</updated>
+    <content type="html"><![CDATA[<p><strong>Navicat for Oracle</strong>是有关Oracle数据库的客户端工具。通过这个客户端，我们可以以图形方式对Oracle数据库进行操作。下面我们介绍如何利用它创建表空间、用户，并且为用户赋予相关权限。<a id="more"></a></p>
+<pre><code>前提：此次演示采用Oracle XE版本。XE版本的实例就是XE，而企业版的默认实例为ORCL。
+</code></pre><p>具体操作：</p>
+<h3 id="新建连接">新建连接</h3><p> <img src="/img/navicat-oracle-createdb1.png" alt=""></p>
+<h3 id="2-_使用超级管理员登陆">2.    使用超级管理员登陆</h3><p> <img src="/img/navicat-oracle-createdb2.png" alt="选择角色为SYSDBA"><br> <img src="/img/navicat-oracle-createdb3.png" alt="配置参数并连接"></p>
+<h3 id="创建表空间">创建表空间</h3><p> <img src="/img/navicat-oracle-createdb4.png" alt="选择其他，表空间"><br> <img src="/img/navicat-oracle-createdb5.png" alt="点击新建表空间"><br> <img src="/img/navicat-oracle-createdb6.png" alt="填写表空间参数"><br> <img src="/img/navicat-oracle-createdb7.png" alt="保存表空间，输入表空间名称"><br> <img src="/img/navicat-oracle-createdb8.png" alt="在文件夹下可以看到新创建的表空间文件"></p>
+<h3 id="创建用户并赋权">创建用户并赋权</h3><p> <img src="/img/navicat-oracle-createdb9.png" alt="新建用户"><br> <img src="/img/navicat-oracle-createdb10.png" alt="填写用户信息"><br> <img src="/img/navicat-oracle-createdb11.png" alt="赋予权限，因为演示，仅简单赋予DBA权限"></p>
+<h3 id="用户登陆测试">用户登陆测试</h3><p> <img src="/img/navicat-oracle-createdb12.png" alt="选择角色为Default"><br> <img src="/img/navicat-oracle-createdb13.png" alt="配置参数连接测试"></p>
+<h3 id="over，收工！">over，收工！</h3>]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>Navicat for Oracle</strong>是有关Oracle数据库的客户端工具。通过这个客户端，我们可以以图形方式对Oracle数据库进行操作。下面我们介绍如何利用它创建表空间、用户，并且为用户赋予相关权限。]]>
+    
+    </summary>
+    
+      <category term="数据存储" scheme="http://mbnow.tk/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Net-Speeder为搬瓦工(OpenVZ)加速]]></title>
+    <link href="http://mbnow.tk/2015/06/12/fq-speed/"/>
+    <id>http://mbnow.tk/2015/06/12/fq-speed/</id>
+    <published>2015-06-12T03:47:07.000Z</published>
+    <updated>2015-11-12T03:41:36.753Z</updated>
+    <content type="html"><![CDATA[<p>为了工作上访问google，购买了一个搬瓦工的$3.99/年的小VPS，服务器一直都很稳定，关键是被墙的厉害，而且出口带宽被限制。使用Net-Speeder可以为OpenVZ类型的VPS加速，实测搬瓦工有效。<a id="more"></a></p>
+<h3 id="Net-Speeder">Net-Speeder</h3><pre><code><span class="tag">net-speeder</span>是一个由<span class="tag">snooda</span><span class="class">.com</span>博主写的<span class="tag">Linux</span>脚本程序，主要目的是为了解决丢包问题，实现<span class="tag">TCP</span>双倍发送，
+也就是同一份数据包发送两份。这样的话在服务器带宽充足情况下，丢包率会平方级降低。不过需要注意的是，
+如果本身<span class="tag">vps</span>的速度不慢，或者丢包率不高，那么，完全没有必要使用，不仅不能提速，反而会在高访问期间减速。
+</code></pre><p><em>net-speeder可为linux全部虚拟技术加速，不是基于tcp的底层加速的。所以限制比较多的openvz也可以使用。</em></p>
+<h3 id="使用方法">使用方法</h3><p>由于原版是托管在googlecode上的，访问不方便，并且使用方法繁琐，所以这里提供一键安装脚本。</p>
+<ul>
+<li><p>net-speeder安装</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http<span class="variable">s:</span>//coding.net/<span class="keyword">u</span>/njzhenghao/<span class="keyword">p</span>/download/git/raw/master/net_speeder-installer.<span class="keyword">sh</span></span><br><span class="line">bash net_speeder-installer.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>端口加速</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup <span class="regexp">/usr/</span>local<span class="regexp">/net_speeder/</span>net_speeder venet0 <span class="string">"ip"</span> &gt;<span class="regexp">/dev/</span><span class="keyword">null</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="总结">总结</h3><p>net-speeder的加速效果还是比较明显的，实测在安装后打开网页和视频明显加快，效果还是相当明显的，如果你的VPS也是OpenVZ类型的，赶紧来试试吧！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>为了工作上访问google，购买了一个搬瓦工的$3.99/年的小VPS，服务器一直都很稳定，关键是被墙的厉害，而且出口带宽被限制。使用Net-Speeder可以为OpenVZ类型的VPS加速，实测搬瓦工有效。]]>
+    
+    </summary>
+    
+      <category term="网络" scheme="http://mbnow.tk/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="IT杂谈" scheme="http://mbnow.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SVN强制要求提交代码注释]]></title>
+    <link href="http://mbnow.tk/2015/05/11/svn-remark/"/>
+    <id>http://mbnow.tk/2015/05/11/svn-remark/</id>
+    <published>2015-05-11T02:48:16.000Z</published>
+    <updated>2015-11-12T03:41:36.770Z</updated>
+    <content type="html"><![CDATA[<p>不少开发员提交修改的时候都不写注释，导致查看历史时很费劲，也不符合规范。有的公司要求每次提交修改时都写上bug号或者任务描述，那么如何在工具上防止开发人员们不写注释呢？<a id="more"></a></p>
+<p>利用svn的pre-commit钩子可简单实现此要求。</p>
+<p>1.进入仓库下hooks目录，找到pre-commit.tmpl文件，重命名名pre-commit.<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># cp pre-commit.tmpl pre-commit    </span></span><br><span class="line"><span class="preprocessor"># chmod +x pre-commit    </span></span><br><span class="line"><span class="preprocessor"># vim pre-commit</span></span><br></pre></td></tr></table></figure></p>
+<p>2.编辑pre-commit文件，将：<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$SVNLOOK</span> <span class="keyword">log</span> -t <span class="string">"<span class="variable">$TXN</span>"</span> <span class="string">"<span class="variable">$REPOS</span>"</span> | \    </span><br><span class="line">   <span class="keyword">grep</span> <span class="string">"[a-zA-Z0-9]"</span> &gt; <span class="regexp">/dev/null</span> || <span class="keyword">exit</span> <span class="number">1</span>    </span><br><span class="line">commit-access-control.pl <span class="string">"<span class="variable">$REPOS</span>"</span> <span class="string">"<span class="variable">$TXN</span>"</span> commit-access-control.cfg || <span class="keyword">exit</span> <span class="number">1</span></span><br></pre></td></tr></table></figure><br>这三行注释掉（前面加#符号）。</p>
+<p>3.在SVNLOOK=/usr/bin/svnlook下添加如下几行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LOGMSG=`<span class="variable">$SVNLOOK</span> <span class="built_in">log</span> -t <span class="string">"<span class="variable">$TXN</span>"</span> <span class="string">"<span class="variable">$REPOS</span>"</span> | grep <span class="string">"[a-zA-Z0-9]"</span> | wc -c`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$LOGMSG</span>"</span> <span class="operator">-lt</span> <span class="number">4</span> ];<span class="comment">#要求注释不能少于4个字符，您可自定义</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="operator">-e</span> <span class="string">"\n代码注释不能为空，请至少输入4个字符"</span> <span class="number">1</span>&gt;&amp;<span class="number">2</span></span><br><span class="line">  <span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<p>保存，退出，此时提交SVN代码，如果不填写注释，则无法正常提交代码。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>不少开发员提交修改的时候都不写注释，导致查看历史时很费劲，也不符合规范。有的公司要求每次提交修改时都写上bug号或者任务描述，那么如何在工具上防止开发人员们不写注释呢？]]>
+    
+    </summary>
+    
+      <category term="IT杂谈" scheme="http://mbnow.tk/tags/IT%E6%9D%82%E8%B0%88/"/>
+    
+      <category term="IT杂谈" scheme="http://mbnow.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[常用的chrome插件]]></title>
+    <link href="http://mbnow.tk/2014/12/05/chrome-plugin/"/>
+    <id>http://mbnow.tk/2014/12/05/chrome-plugin/</id>
+    <published>2014-12-05T09:23:41.000Z</published>
+    <updated>2015-11-12T03:41:36.751Z</updated>
+    <content type="html"><![CDATA[<p>工作中使用chrome较多，主要是依赖与它的强大的可调试功能和强大的插件库，现对我常用的chrome插件做个整理。<a id="more"></a></p>
+<h3 id="1-_AdBlock">1. AdBlock</h3><p>最受欢迎的Chrome扩展，拥有超过4000万用户！屏蔽整个互联网上的广告。</p>
+<h3 id="2-_LastPass">2. LastPass</h3><p>免费的密码管家，自动管理你的密码，现在随便哪个不重要的网站都需要登录，而且有的变态网站会要求你密码大于8位，包含数字大小写，每次遇到这种网站，我就有想扁他一顿冲动。so，你需要一个帮你管理那些不重要的网站的密码的软件。</p>
+<h3 id="3-_Proxy_SwitchySharp">3. Proxy SwitchySharp</h3><p>轻松快捷地管理和切换多个代理设置。基于 “Proxy Switchy!” 和 “SwitchyPlus” 开发。对于这个插件，我只能说，你懂的。</p>
+<h3 id="4-_印象笔记·剪藏">4. 印象笔记·剪藏</h3><p>使用印象笔记扩展程序一键保存精彩网页内容到印象笔记帐户。爱学习的人都在用。</p>
+<h3 id="5-_Speed_Dial_2">5. Speed Dial 2</h3><p>常用网页标签管理。</p>
+<h3 id="6-_MBL&amp;MC迅雷离线/QQ旋风/百度网盘/360云盘等aria2增强脚本">6. MBL&amp;MC迅雷离线/QQ旋风/百度网盘/360云盘等aria2增强脚本</h3><p>Aria2离线下载插件，让你的路由或NAS下电影的chrome插件。</p>
+<h3 id="7-_Chrome_Sniffer_Plus">7. Chrome Sniffer Plus</h3><p>探测当前网页正在使用的开源软件或者js类库，web开发者必备神器。看看别人网站都用了啥技术。</p>
+<h3 id="7-_二维码(QR码)生成器">7. 二维码(QR码)生成器</h3><p>可以生成当前页面二维码,手机直接扫二维码就可以访问当前页面，手机调试html5网页很方便，有木有？</p>
+<h3 id="8-_Adkill_and_Media_Download">8. Adkill and Media Download</h3><p>下载视频网站的视频。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>工作中使用chrome较多，主要是依赖与它的强大的可调试功能和强大的插件库，现对我常用的chrome插件做个整理。]]>
+    
+    </summary>
+    
+      <category term="IT杂谈" scheme="http://mbnow.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ngrok：微信公众号接口本地调试]]></title>
+    <link href="http://mbnow.tk/2014/12/05/ngrok/"/>
+    <id>http://mbnow.tk/2014/12/05/ngrok/</id>
+    <published>2014-12-05T07:39:37.000Z</published>
+    <updated>2015-11-12T03:41:36.767Z</updated>
+    <content type="html"><![CDATA[<p>在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，<strong>ngrok</strong>是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。<a id="more"></a></p>
+<h1 id="基本篇：快速开始">基本篇：快速开始</h1><h3 id="第一步：下载ngrok">第一步：下载ngrok</h3><p>官网下载：<a href="https://ngrok.com/download" target="_blank" rel="external">https://ngrok.com/download</a>，然后选择自己所需的版本（我的是windows）.<br><img src="/img/ngrok_img1.jpg" alt=""></p>
+<h3 id="第二步：启动本地应用">第二步：启动本地应用</h3><p>譬如在你本机80端口启动tomcat,首先保证本地可以访问你的应用。<br><img src="/img/ngrok_img2.jpg" alt=""></p>
+<h3 id="第三步：运行ngrok">第三步：运行ngrok</h3><p>解压下载的的ngrok压缩包，得到ngrok.exe，cmd到可执行文件目录，输入：<code>ngrok 80</code>，回车运行，看到如下图结果即运行成功。<br><img src="/img/ngrok_img3.jpg" alt=""><br><img src="/img/ngrok_img4.jpg" alt=""></p>
+<h3 id="第四步：外网访问应用">第四步：外网访问应用</h3><p>访问上面生成的网址<a href="https://54de4ee4.ngrok.com" target="_blank" rel="external">https://54de4ee4.ngrok.com</a>或者<a href="http://54de4ee4.ngrok.com" target="_blank" rel="external">http://54de4ee4.ngrok.com</a> 试试，是不是已经将你的应用映射到外网了，而且还是http和https两种类型。<br><img src="/img/ngrok_img5.jpg" alt=""></p>
+<h1 id="高级篇：定制子域名">高级篇：定制子域名</h1><h3 id="第一步：注册并登录获取授权码">第一步：注册并登录获取授权码</h3><p>进入<a href="https://ngrok.com/user/signup" target="_blank" rel="external">https://ngrok.com/user/signup</a>，填写信息进行注册，登录后会看到有一个授权码。<br><img src="/img/ngrok_img6.jpg" alt=""><br><img src="/img/ngrok_img7.jpg" alt=""></p>
+<h3 id="第二步：为ngrok添加authtoken">第二步：为ngrok添加authtoken</h3><p>cmd到ngrok.exe文件目录，输入：<code>ngrok -authtoken your_key 80</code>，其中your_key为你上面复制的授权码，回车运行，如下图所示。<br><img src="/img/ngrok_img8.jpg" alt=""><br><img src="/img/ngrok_img9.jpg" alt=""></p>
+<h3 id="第三步：为ngrok定制子域名">第三步：为ngrok定制子域名</h3><p>按ctrl+c返回，输入：<code>ngrok -subdomain=wxent 80</code>,回车运行，如下图所示。<br><img src="/img/ngrok_img10.jpg" alt=""><br><img src="/img/ngrok_img11.jpg" alt=""></p>
+<p>访问下你定制的子域名试试！<br>下次启动时，只需再次输入命令：<code>ngrok -subdomain=wxent 80</code>即可，无需再次添加authtoken，我的已经OK了，你的可以访问了吗？</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，<strong>ngrok</strong>是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。]]>
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://mbnow.tk/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="微信开发" scheme="http://mbnow.tk/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[webservice接口调用日志：（三）注解生成接口调用日志]]></title>
+    <link href="http://mbnow.tk/2014/05/07/interface-log-3/"/>
+    <id>http://mbnow.tk/2014/05/07/interface-log-3/</id>
+    <published>2014-05-07T06:17:07.000Z</published>
+    <updated>2015-11-12T03:41:36.764Z</updated>
+    <content type="html"><![CDATA[<p>考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。<a id="more"></a></p>
+<h3 id="1-_启用@AspectJ支持">1. 启用@AspectJ支持</h3><p>在你的工程lib目录下添加<code>aspectjweaver.jar</code>和<code>aspectjrt.jar</code>并在spring 的配置文件中添加如下代码：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;aop:aspectj-autoproxy/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此步完成了@AspectJ的支持，从而可以实现通过注解方式将通知编织到非公共方法中。但是在添加时还要注意在Spring配置文件的命名空间中添加aop支持。</p>
+<p><img src="/img/interface-log-3_img1.png" alt=""></p>
+<h3 id="2-_编写自定义注解">2. 编写自定义注解</h3><p>实现对方法所实现的功能进行描述，以便在通知中获取描述信息，代码如下：</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> 接口调用日志注解</span><br><span class="line"> <span class="keyword">*</span> </span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author lcw</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line"><span class="comment">@Target(&#123;ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="comment">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">@Documented</span></span><br><span class="line">public <span class="comment">@interface WsLog &#123;</span></span><br><span class="line">	</span><br><span class="line">	/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">	 <span class="keyword">*</span> 接口功能项说明</span><br><span class="line">	 <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">	 <span class="keyword">*</span>/</span><br><span class="line">	String desc() default <span class="string">"无描述信息"</span>;</span><br><span class="line">	</span><br><span class="line">	/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">	 <span class="keyword">*</span> 此接口调用失败时对应的错误级别。</span><br><span class="line">	 <span class="keyword">*</span> 0:正常；1:警告；2错误；3严重错误；（4和5备用扩展）。</span><br><span class="line">	 <span class="keyword">*</span> 默认错误等级为2</span><br><span class="line">	 <span class="keyword">*</span> </span><br><span class="line">	 <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">	 <span class="keyword">*</span>/</span><br><span class="line">	String errLevel() default <span class="string">"2"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-_编写操作日志切面通知实现类">3. 编写操作日志切面通知实现类</h3><p>在编写切面通知实现类之前，我们需要搞清楚我们需要哪些通知类型，是前置通知、后置通知、环绕通知或异常通知？根据我的需求，我们知道我们记录的操作日志有两种情况，一种是操作成功，一种是操作失败。操作成功时则方法肯定已经执行完成，故我们需要实现一个后置通知；操作失败时则说明方法出现异常无法正常执行完成，故还需要一个异常通知。因此我们就需要实现这两个通知即可。代码如下：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * AOP日志实现类</span><br><span class="line"> * </span><br><span class="line"> * @author lcw</span><br><span class="line"> */</span></span><br><span class="line">@Aspect</span><br><span class="line">@Component</span><br><span class="line">public class WsLogAspect &#123;</span><br><span class="line">	</span><br><span class="line">	private static Log wsLogger = LogFactory.getLog<span class="params">(<span class="string">"webServiceLog"</span>)</span>;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 采用后置通知方式，目标方法执行成功后执行</span><br><span class="line">	 * @param jp</span><br><span class="line">	 * @param wl</span><br><span class="line">	 */</span></span><br><span class="line">	@AfterReturning<span class="params">(<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>)</span></span><br><span class="line">	public void successLog<span class="params">(JoinPoint jp, WsLog wl)</span>&#123;</span><br><span class="line">		Object[] parames = jp.getArgs<span class="params">()</span>;								<span class="comment">//获取目标方法体参数</span></span><br><span class="line">		String className = jp.getTarget<span class="params">()</span>.getClass<span class="params">()</span>.toString<span class="params">()</span>;		<span class="comment">//获取目标类名</span></span><br><span class="line">		className = className.substring<span class="params">(className.indexOf<span class="params">(<span class="string">"com"</span>)</span>)</span>;</span><br><span class="line">		String signature = jp.getSignature<span class="params">()</span>.toString<span class="params">()</span>;				<span class="comment">//获取目标方法签名</span></span><br><span class="line">		String methodName = signature.substring<span class="params">(signature.lastIndexOf<span class="params">(<span class="string">"."</span>)</span>+<span class="number">1</span>, signature.indexOf<span class="params">(<span class="string">"("</span>)</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		WsLogVO logvo = new WsLogVO<span class="params">()</span>;</span><br><span class="line">		logvo.setClassName<span class="params">(className)</span>;</span><br><span class="line">		logvo.setMethodName<span class="params">(methodName)</span>;</span><br><span class="line">		logvo.setArgument<span class="params">(JsonMapper.getInstance<span class="params">()</span>.toJson<span class="params">(parames)</span>)</span>;<span class="comment">//解析目标方法体的参数</span></span><br><span class="line">		logvo.setDescription<span class="params">(wl.desc<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setOperationTime<span class="params">(DateUtils.getDateTime<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setResult<span class="params">(<span class="string">"0"</span>)</span>;</span><br><span class="line">		logvo.setErrorLevel<span class="params">(<span class="string">"0"</span>)</span>;</span><br><span class="line">		logvo.setErrorMsg<span class="params">(<span class="string">""</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		outputLog<span class="params">(logvo)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 异常通知方式，当目标方法出现异常时执行</span><br><span class="line">	 * </span><br><span class="line">	 * @param jp</span><br><span class="line">	 * @param wl</span><br><span class="line">	 * @param ex</span><br><span class="line">	 */</span></span><br><span class="line">	@AfterThrowing<span class="params">(pointcut=<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>, throwing=<span class="string">"ex"</span>)</span></span><br><span class="line">	public void throwLog<span class="params">(JoinPoint jp, WsLog wl, Exception ex)</span>&#123;</span><br><span class="line">		Object[] parames = jp.getArgs<span class="params">()</span>;</span><br><span class="line">		String className = jp.getTarget<span class="params">()</span>.getClass<span class="params">()</span>.toString<span class="params">()</span>;</span><br><span class="line">		className = className.substring<span class="params">(className.indexOf<span class="params">(<span class="string">"com"</span>)</span>)</span>;</span><br><span class="line">		String signature = jp.getSignature<span class="params">()</span>.toString<span class="params">()</span>;</span><br><span class="line">		String methodName = signature.substring<span class="params">(signature.lastIndexOf<span class="params">(<span class="string">"."</span>)</span>+<span class="number">1</span>, signature.indexOf<span class="params">(<span class="string">"("</span>)</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		WsLogVO logvo = new WsLogVO<span class="params">()</span>;</span><br><span class="line">		logvo.setClassName<span class="params">(className)</span>;</span><br><span class="line">		logvo.setMethodName<span class="params">(methodName)</span>;</span><br><span class="line">		logvo.setArgument<span class="params">(JsonMapper.getInstance<span class="params">()</span>.toJson<span class="params">(parames)</span>)</span>;</span><br><span class="line">		logvo.setDescription<span class="params">(wl.desc<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setOperationTime<span class="params">(DateUtils.getDateTime<span class="params">()</span>)</span>;</span><br><span class="line">		logvo.setResult<span class="params">(<span class="string">"1"</span>)</span>;</span><br><span class="line">		logvo.setErrorLevel<span class="params">(<span class="string">"2"</span>)</span>;</span><br><span class="line">		logvo.setErrorMsg<span class="params">(ex.getMessage<span class="params">()</span>)</span>;</span><br><span class="line">		</span><br><span class="line">		outputLog<span class="params">(logvo)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 按统一日志格式输出日志</span><br><span class="line">	 * </span><br><span class="line">	 * </span><br><span class="line">	 * 日志输出格式说明：调用接口名称|接口参数|调用时间|调用结果|错误等级|接口说明</span><br><span class="line">	 * 调用结果：0:成功；1:失败</span><br><span class="line">	 * 错误等级：0:正常；1:警告；2错误；3严重错误。（4和5备用扩展）。</span><br><span class="line">	 * </span><br><span class="line">	 * @param logvo</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span></span><br><span class="line">	private void outputLog<span class="params">(WsLogVO logvo)</span> &#123;</span><br><span class="line">		StringBuffer logStr = new StringBuffer<span class="params">()</span>;</span><br><span class="line">		logStr.append<span class="params">(logvo.getClassName<span class="params">()</span> + <span class="string">"."</span> + logvo.getMethodName<span class="params">()</span> + <span class="string">"()"</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>	<span class="comment">//调用接口类及接口名称</span></span><br><span class="line">			.append<span class="params">(logvo.getArgument<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>											<span class="comment">//接口参数</span></span><br><span class="line">			.append<span class="params">(logvo.getOperationTime<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>										<span class="comment">//调用时间</span></span><br><span class="line">			.append<span class="params">(logvo.getResult<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>												<span class="comment">//调用结果</span></span><br><span class="line">			.append<span class="params">(logvo.getErrorLevel<span class="params">()</span>)</span>.append<span class="params">(<span class="string">"|"</span>)</span>											<span class="comment">//错误等级</span></span><br><span class="line">			.append<span class="params">(logvo.getDescription<span class="params">()</span>)</span>;													<span class="comment">//说明</span></span><br><span class="line">		</span><br><span class="line">		wsLogger.info<span class="params">(logStr.toString<span class="params">()</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看上面的代码会发现这两个方法体：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">AfterReturning</span>(<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>)</span><br><span class="line">public <span class="type">void</span> successLog(<span class="type">JoinPoint</span> jp, <span class="type">WsLog</span> wl)<span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">AfterThrowing</span>(pointcut=<span class="string">"within(com.openeap.modules..*) &amp;&amp; @annotation(wl)"</span>, throwing=<span class="string">"ex"</span>)</span><br><span class="line">public <span class="type">void</span> throwLog(<span class="type">JoinPoint</span> jp, <span class="type">WsLog</span> wl, <span class="type">Exception</span> ex)<span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这两个方法体分别是后置通知和异常通知的实现。它们有两个相同的参数jp和wl，jp是切点对象，通过该对象可以获取切点所切入方法所在的类，方法名、参数等信息，具体方法可以看方法体的实现；wl则是我们的自定义注解的对象，通过该对象我们可以获取注解中参数值，从而获取方法的描述信息。在异常通知中多出了一个ex参数，该参数是方法执行时所抛出的异常，从而可以获取相应的异常信息。此处可以自定义异常。注意：如果指定异常参数，则异常对象必须与通知所切入的方法体抛出的异常保持一致，否则该通知不会执行。</p>
+<p><code>successLog</code>方法签名上的@AfterReturning(“within(com.openeap.modules..*) &amp;&amp; @annotation(wl)”)注解，是指定该方法体为后置通知，其有一个表达式参数，用来检索符合条件的切点。该表达式指定com/openeap/modules目录下及其所有子目录下的所有带有@WsLog注解的方法体为切点。</p>
+<p><code>throwLog</code>方法签名上的@AfterThrowing(pointcut=”within(com.openeap.modules..*) &amp;&amp; @annotation(wl)”, throwing=”ex”)注解，是指定方法体为异常通知，其有一个表达式参数和一个抛出异常参数。表达式参数与后置通知的表达式参数含义相同，而抛出异常参数，则表示如果com/openeap/modules目录下及其所有子目录下的所有带有@WsLog注解的方法体在执行时抛出异常时该通知便会执行。</p>
+<p>获取前面配置的log4j配置生成日志文件，对接口调用日志文件进行输出：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Log wsLogger = LogFactory.getLog(<span class="string">"webServiceLog"</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-_使用注解标注需要记录日志的接口">4. 使用注解标注需要记录日志的接口</h3><p>在com/openeap/modules目录下及其所有子目录下任意找到一个service层的某个类的方法或者webservice中的服务方法，在其方法体上添加@WsLog(desc=”描述信息”)即可。代码如下：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">WsLog</span>(desc=<span class="string">"创建用户"</span>)</span><br><span class="line">public <span class="type">GetUserResult</span> getUser(<span class="type">Long</span> id) <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>最终日志生成结果如下：</p>
+<pre><code>com.openeap.modules.demo.webservice.soap.AccountSoapServiceImpl.getUser()|<span class="string">[1]</span>|<span class="string">2014-05-07 11:32:45</span>|<span class="string">0</span>|<span class="string">0</span>|<span class="string">创建用户</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。]]>
+    
+    </summary>
+    
+      <category term="log4j，日志" scheme="http://mbnow.tk/tags/log4j%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
+    
+      <category term="Java" scheme="http://mbnow.tk/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[webservice接口调用日志：（二）log4j生成单独日志文件]]></title>
+    <link href="http://mbnow.tk/2014/05/07/interface-log-2/"/>
+    <id>http://mbnow.tk/2014/05/07/interface-log-2/</id>
+    <published>2014-05-07T06:17:07.000Z</published>
+    <updated>2015-11-12T03:41:36.761Z</updated>
+    <content type="html"><![CDATA[<p><code>DailyRollingFileAppender</code>是日志记录软件包Log4J中的一个<code>Appender</code>，它能够按一定的频度滚动日志记录文件，利用此Appender，我们可以按天生成一个接口调用日志文件。<a id="more"></a></p>
+<p>在<code>DailyRollingFileAppender</code>中可以指定monthly(每月)、weekly(每周)、daily(每天)、half-daily(每半天)、hourly(每小时)和minutely(每分钟)六个频度，通过为<code>DatePattern</code>选项赋予不同的值来完成的。</p>
+<p><code>DatePattern</code>选项的有效值为：</p>
+<pre><code><span class="string">'.'</span>yyyy-MM,对应<span class="function"><span class="title">monthly</span><span class="params">(每月)</span></span>
+<span class="string">'.'</span>yyyy-ww,对应<span class="function"><span class="title">weekly</span><span class="params">(每周)</span></span>
+<span class="string">'.'</span>yyyy-MM-<span class="tag">dd</span>,对应<span class="function"><span class="title">daily</span><span class="params">(每天)</span></span>
+<span class="string">'.'</span>yyyy-MM-dd-<span class="tag">a</span>,对应<span class="function"><span class="title">half-daily</span><span class="params">(每半天)</span></span>
+<span class="string">'.'</span>yyyy-MM-dd-HH,对应<span class="function"><span class="title">hourly</span><span class="params">(每小时)</span></span>
+<span class="string">'.'</span>yyyy-MM-dd-HH-mm,对应<span class="function"><span class="title">minutely</span><span class="params">(每分钟)</span></span>
+</code></pre><p>DatePattern中不用处理的文字要放到单引号(‘)中，如上面的(.)。</p>
+<p>我们可以按如下的方式在log4j.properties中对<code>DailyRollingFileAppender</code>进行配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#webservice log</span></span><br><span class="line"><span class="built_in">log</span>4j.logger.webServiceLog= INFO,wslog</span><br><span class="line"><span class="built_in">log</span>4j.appender.wslog=org.apache.log4j.DailyRollingFileAppender</span><br><span class="line"><span class="built_in">log</span>4j.appender.wslog.datePattern=<span class="string">'_'</span>yyyyMMdd<span class="string">'.log'</span></span><br><span class="line"><span class="built_in">log</span>4j.appender.wslog.File=<span class="variable">$&#123;catalina.base&#125;</span>/logs/wslog</span><br><span class="line"><span class="built_in">log</span>4j.appender.wslog.layout=org.apache.log4j.PatternLayout</span><br><span class="line"><span class="built_in">log</span>4j.appender.wslog.layout.ConversionPattern=%m%n</span><br></pre></td></tr></table></figure>
+<p>生成日志文件为:wslog_20140506.log , wslog_20140507.log , 而当天的日志文件名称为wslog，log4j会自动为以前日期的日志文件重命名存储。测试的时候可以修改系统时间来观察生成的日志文件。</p>
+<p>DailyRollingFileAppender在每一个日志事件(LoggingEvent)附加(append)之前检查是否需要附加。也就是说如果在一个滚动区间中没有任何日志记录，那么这个区间的日志记录文件就不会形成。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><code>DailyRollingFileAppender</code>是日志记录软件包Log4J中的一个<code>Appender</code>，它能够按一定的频度滚动日志记录文件，利用此Appender，我们可以按天生成一个接口调用日志文件。]]>
+    
+    </summary>
+    
+      <category term="log4j，日志" scheme="http://mbnow.tk/tags/log4j%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
+    
+      <category term="Java" scheme="http://mbnow.tk/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[webservice接口调用日志：（一）日志生成方案]]></title>
+    <link href="http://mbnow.tk/2014/05/07/interface-log-1/"/>
+    <id>http://mbnow.tk/2014/05/07/interface-log-1/</id>
+    <published>2014-05-07T06:17:07.000Z</published>
+    <updated>2015-11-12T03:41:36.758Z</updated>
+    <content type="html"><![CDATA[<p>公司存在各种各样的业务系统，不仅系统采用开发语言不一样，部署及运维方式也存在多样性。</p>
+<p>在信息系统互通互联的时候，我们会采用各种接口对信息系统进行衔接。通过接口的调用和交互，我们能提高各个信息系统之间的连贯性和实用性。</p>
+<p>但是由于网络或者硬件的原因，接口的调用容易演变成信息系统交互的风险。为了进一步的提高系统的稳健性和可靠性，我们需要对接口的调用记录日志，方便跟踪接口的调用及问题的诊断。<a id="more"></a></p>
+<p>此系列文章用于记录此方案实现过程，此<strong>方案示意图</strong>如下：</p>
+<p><img src="/img/interface-log-1_img1.jpg" alt=""></p>
+<h3 id="1-_使用集中式服务管理和分析日志">1. 使用集中式服务管理和分析日志</h3><p>各个接口服务器仅需在本地产生接口的调用日志，然后采用统一的日志服务定时进行任务抽取，日志分析，展现。日志服务应用中会存储与接口服务器相关的映射表，其中包括（接口服务器名称，编码，日志文件路径，最后一次成功读取时间等）。当增加接口服务器时，仅需在日志服务的映射表中增加一条接口服务器的数据即可，定时任务会根据记录数据自动读取新增加的日志文件。</p>
+<h3 id="2-_接口服务器日志输出">2. 接口服务器日志输出</h3><p>各个接口服务器可以在保证输出格式一致的情况下，自行选择实现相关业务日志的    输出，相同的技术平台，可以开发通用服务进行调用。</p>
+<h3 id="3-_定时读取及日志读取出错重试机制">3. 定时读取及日志读取出错重试机制</h3><p>接口服务器每天会定时读取各接口服务器的日志文件，同时将日子文件副本拷贝至    日志服务器，为日志服务的自动分析提供基础数据。每次读取成功后，更新接口服务器    映射表的最后成功读取日志时间字段。</p>
+<p>定时任务在执行时，会先检查接口服务器映射表中的最后成功读取日志时间字段，如果此日期非当前日期的前一天，将自动从日期+1天开始读取日志文件。直至读到当天日志文件为止，读取成功后，更新最后成功读取日志时间字段。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>公司存在各种各样的业务系统，不仅系统采用开发语言不一样，部署及运维方式也存在多样性。</p>
+<p>在信息系统互通互联的时候，我们会采用各种接口对信息系统进行衔接。通过接口的调用和交互，我们能提高各个信息系统之间的连贯性和实用性。</p>
+<p>但是由于网络或者硬件的原因，接口的调用容易演变成信息系统交互的风险。为了进一步的提高系统的稳健性和可靠性，我们需要对接口的调用记录日志，方便跟踪接口的调用及问题的诊断。]]>
+    
+    </summary>
+    
+      <category term="接口，日志" scheme="http://mbnow.tk/tags/%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
+    
+      <category term="Java" scheme="http://mbnow.tk/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World! hexo!]]></title>
+    <link href="http://mbnow.tk/2014/04/26/hello-world/"/>
+    <id>http://mbnow.tk/2014/04/26/hello-world/</id>
+    <published>2014-04-26T15:16:58.000Z</published>
+    <updated>2015-11-12T03:41:36.756Z</updated>
+    <content type="html"><![CDATA[<p>欢迎来到白云飞的blog，本博客采用<a href="http://hexo.io" target="_blank" rel="external">Hexo</a>！<a id="more"></a></p>
+<p>Hexo的使用教程可以参见<a href="http://hexo.io/docs" target="_blank" rel="external">Hexo文档</a>。</p>
+<p>Hexo博客搭建及优化参见<a href="http://zipperary.com/" target="_blank" rel="external">Zippera’s blog</a>。</p>
+<p>搭建本博客的用于记载兴趣及工作中的技术点滴！</p>
+<p><strong>2014，马上开始!</strong></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>欢迎来到白云飞的blog，本博客采用<a href="http://hexo.io">Hexo</a>！]]>
+    
+    </summary>
+    
+      <category term="生活" scheme="http://mbnow.tk/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+</feed>
