@@ -44,7 +44,7 @@
     <link href="http://mbnow.tk/2015/11/23/navicat-oracle-createdb/"/>
     <id>http://mbnow.tk/2015/11/23/navicat-oracle-createdb/</id>
     <published>2015-11-23T07:57:53.000Z</published>
-    <updated>2015-11-24T04:01:07.338Z</updated>
+    <updated>2015-11-24T04:01:07.000Z</updated>
     <content type="html"><![CDATA[<p><strong>Navicat for Oracle</strong>是有关Oracle数据库的客户端工具。通过这个客户端，我们可以以图形方式对Oracle数据库进行操作。下面我们介绍如何利用它创建表空间、用户，并且为用户赋予相关权限。<a id="more"></a></p>
 <pre><code>前提：此次演示采用Oracle XE版本。XE版本的实例就是XE，而企业版的默认实例为ORCL。
 </code></pre><p>具体操作：</p>
@@ -68,7 +68,7 @@
     <link href="http://mbnow.tk/2015/06/12/fq-speed/"/>
     <id>http://mbnow.tk/2015/06/12/fq-speed/</id>
     <published>2015-06-12T03:47:07.000Z</published>
-    <updated>2015-11-12T03:41:36.753Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>为了工作上访问google，购买了一个搬瓦工的$3.99/年的小VPS，服务器一直都很稳定，关键是被墙的厉害，而且出口带宽被限制。使用Net-Speeder可以为OpenVZ类型的VPS加速，实测搬瓦工有效。<a id="more"></a></p>
 <h3 id="Net-Speeder">Net-Speeder</h3><pre><code><span class="tag">net-speeder</span>是一个由<span class="tag">snooda</span><span class="class">.com</span>博主写的<span class="tag">Linux</span>脚本程序，主要目的是为了解决丢包问题，实现<span class="tag">TCP</span>双倍发送，
 也就是同一份数据包发送两份。这样的话在服务器带宽充足情况下，丢包率会平方级降低。不过需要注意的是，
@@ -101,7 +101,7 @@
     <link href="http://mbnow.tk/2015/05/11/svn-remark/"/>
     <id>http://mbnow.tk/2015/05/11/svn-remark/</id>
     <published>2015-05-11T02:48:16.000Z</published>
-    <updated>2015-11-12T03:41:36.770Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>不少开发员提交修改的时候都不写注释，导致查看历史时很费劲，也不符合规范。有的公司要求每次提交修改时都写上bug号或者任务描述，那么如何在工具上防止开发人员们不写注释呢？<a id="more"></a></p>
 <p>利用svn的pre-commit钩子可简单实现此要求。</p>
 <p>1.进入仓库下hooks目录，找到pre-commit.tmpl文件，重命名名pre-commit.<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># cp pre-commit.tmpl pre-commit    </span></span><br><span class="line"><span class="preprocessor"># chmod +x pre-commit    </span></span><br><span class="line"><span class="preprocessor"># vim pre-commit</span></span><br></pre></td></tr></table></figure></p>
@@ -125,7 +125,7 @@
     <link href="http://mbnow.tk/2014/12/05/chrome-plugin/"/>
     <id>http://mbnow.tk/2014/12/05/chrome-plugin/</id>
     <published>2014-12-05T09:23:41.000Z</published>
-    <updated>2015-11-12T03:41:36.751Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>工作中使用chrome较多，主要是依赖与它的强大的可调试功能和强大的插件库，现对我常用的chrome插件做个整理。<a id="more"></a></p>
 <h3 id="1-_AdBlock">1. AdBlock</h3><p>最受欢迎的Chrome扩展，拥有超过4000万用户！屏蔽整个互联网上的广告。</p>
 <h3 id="2-_LastPass">2. LastPass</h3><p>免费的密码管家，自动管理你的密码，现在随便哪个不重要的网站都需要登录，而且有的变态网站会要求你密码大于8位，包含数字大小写，每次遇到这种网站，我就有想扁他一顿冲动。so，你需要一个帮你管理那些不重要的网站的密码的软件。</p>
@@ -151,7 +151,7 @@
     <link href="http://mbnow.tk/2014/12/05/ngrok/"/>
     <id>http://mbnow.tk/2014/12/05/ngrok/</id>
     <published>2014-12-05T07:39:37.000Z</published>
-    <updated>2015-11-12T03:41:36.767Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，<strong>ngrok</strong>是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。<a id="more"></a></p>
 <h1 id="基本篇：快速开始">基本篇：快速开始</h1><h3 id="第一步：下载ngrok">第一步：下载ngrok</h3><p>官网下载：<a href="https://ngrok.com/download" target="_blank" rel="external">https://ngrok.com/download</a>，然后选择自己所需的版本（我的是windows）.<br><img src="/img/ngrok_img1.jpg" alt=""></p>
 <h3 id="第二步：启动本地应用">第二步：启动本地应用</h3><p>譬如在你本机80端口启动tomcat,首先保证本地可以访问你的应用。<br><img src="/img/ngrok_img2.jpg" alt=""></p>
@@ -178,7 +178,7 @@
     <link href="http://mbnow.tk/2014/05/07/interface-log-3/"/>
     <id>http://mbnow.tk/2014/05/07/interface-log-3/</id>
     <published>2014-05-07T06:17:07.000Z</published>
-    <updated>2015-11-12T03:41:36.764Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。<a id="more"></a></p>
 <h3 id="1-_启用@AspectJ支持">1. 启用@AspectJ支持</h3><p>在你的工程lib目录下添加<code>aspectjweaver.jar</code>和<code>aspectjrt.jar</code>并在spring 的配置文件中添加如下代码：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;aop:aspectj-autoproxy/&gt;</span></span><br></pre></td></tr></table></figure>
@@ -215,7 +215,7 @@
     <link href="http://mbnow.tk/2014/05/07/interface-log-2/"/>
     <id>http://mbnow.tk/2014/05/07/interface-log-2/</id>
     <published>2014-05-07T06:17:07.000Z</published>
-    <updated>2015-11-12T03:41:36.761Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p><code>DailyRollingFileAppender</code>是日志记录软件包Log4J中的一个<code>Appender</code>，它能够按一定的频度滚动日志记录文件，利用此Appender，我们可以按天生成一个接口调用日志文件。<a id="more"></a></p>
 <p>在<code>DailyRollingFileAppender</code>中可以指定monthly(每月)、weekly(每周)、daily(每天)、half-daily(每半天)、hourly(每小时)和minutely(每分钟)六个频度，通过为<code>DatePattern</code>选项赋予不同的值来完成的。</p>
 <p><code>DatePattern</code>选项的有效值为：</p>
@@ -247,7 +247,7 @@
     <link href="http://mbnow.tk/2014/05/07/interface-log-1/"/>
     <id>http://mbnow.tk/2014/05/07/interface-log-1/</id>
     <published>2014-05-07T06:17:07.000Z</published>
-    <updated>2015-11-12T03:41:36.758Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>公司存在各种各样的业务系统，不仅系统采用开发语言不一样，部署及运维方式也存在多样性。</p>
 <p>在信息系统互通互联的时候，我们会采用各种接口对信息系统进行衔接。通过接口的调用和交互，我们能提高各个信息系统之间的连贯性和实用性。</p>
 <p>但是由于网络或者硬件的原因，接口的调用容易演变成信息系统交互的风险。为了进一步的提高系统的稳健性和可靠性，我们需要对接口的调用记录日志，方便跟踪接口的调用及问题的诊断。<a id="more"></a></p>
@@ -276,7 +276,7 @@
     <link href="http://mbnow.tk/2014/04/26/hello-world/"/>
     <id>http://mbnow.tk/2014/04/26/hello-world/</id>
     <published>2014-04-26T15:16:58.000Z</published>
-    <updated>2015-11-12T03:41:36.756Z</updated>
+    <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>欢迎来到白云飞的blog，本博客采用<a href="http://hexo.io" target="_blank" rel="external">Hexo</a>！<a id="more"></a></p>
 <p>Hexo的使用教程可以参见<a href="http://hexo.io/docs" target="_blank" rel="external">Hexo文档</a>。</p>
 <p>Hexo博客搭建及优化参见<a href="http://zipperary.com/" target="_blank" rel="external">Zippera’s blog</a>。</p>
