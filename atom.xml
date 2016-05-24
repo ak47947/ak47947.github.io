@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Stay hungry, Stay foolish.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://mbnow.tk//"/>
-  <updated>2015-11-24T04:01:07.338Z</updated>
+  <updated>2016-01-28T09:28:58.000Z</updated>
   <id>http://mbnow.tk//</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[keepalived+nginx 实现集群前端高可用]]></title>
+    <link href="http://mbnow.tk/2016/01/27/keepalived-nginx/"/>
+    <id>http://mbnow.tk/2016/01/27/keepalived-nginx/</id>
+    <published>2016-01-27T07:27:12.000Z</published>
+    <updated>2016-01-28T09:28:58.000Z</updated>
+    <content type="html"><![CDATA[<p>公司系统要实现高可用，避免单点故障，所以计划使用 Keepalived 工具来实现 nginx 的高可用（High Avaiability），达到一台nginx入口服务器宕机，另一台备用机自动接管服务的效果。<a id="more"></a>（nginx做反向代理，实现后端应用服务器的负载均衡）。</p>
+<h2 id="准备工作：">准备工作：</h2><h3 id="环境说明：">环境说明：</h3><p>两台Redhat Enterprise Linux 6 x64主机</p>
+<h3 id="更换yum源">更换yum源</h3><p>采用yum源可以很方便的安装软件包，但是国内的yum源访问较慢，可以将Redhat的yum源切换至阿里云的yum源。<br>具体参考： <a href="http://blog.csdn.net/davidyezhiwei/article/details/49280041" target="_blank" rel="external">http://blog.csdn.net/davidyezhiwei/article/details/49280041</a></p>
+<h2 id="安装软件包">安装软件包</h2><h3 id="使用yum安装nginx">使用yum安装nginx</h3><p>1.处理nginx的yum源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http:<span class="comment">//nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm</span></span><br></pre></td></tr></table></figure>
+<p>2.查看yum的nginx信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum info nginx</span><br></pre></td></tr></table></figure>
+<p>3.安装并启动nginx<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">安装：yum install nginx </span><br><span class="line">启动：service nginx start</span><br><span class="line">检查：service nginx status</span><br></pre></td></tr></table></figure></p>
+<p>4.浏览器测试<br>    浏览器访问：<a href="http://server_ip" target="_blank" rel="external">http://server_ip</a> (server_ip为服务器ip)，能看到nginx主页，表示nginx安装启动成功。</p>
+<h3 id="使用yum安装keepalived">使用yum安装keepalived</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安装：yum install -y keepalived</span><br><span class="line">查看版本：keepalived -v</span><br><span class="line">启动：service keepalived start</span><br><span class="line">检查：service keepalived status</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>公司系统要实现高可用，避免单点故障，所以计划使用 Keepalived 工具来实现 nginx 的高可用（High Avaiability），达到一台nginx入口服务器宕机，另一台备用机自动接管服务的效果。]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Navicat for Oracle 创建表空间、用户、权限赋予]]></title>
