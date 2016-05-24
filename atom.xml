@@ -4,9 +4,9 @@
   <title><![CDATA[白云飞的blog]]></title>
   <subtitle><![CDATA[Stay hungry, Stay foolish.]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://mbnow.tk//"/>
+  <link href="http://iter.tk//"/>
   <updated>2016-01-28T09:28:58.000Z</updated>
-  <id>http://mbnow.tk//</id>
+  <id>http://iter.tk//</id>
   
   <author>
     <name><![CDATA[白云飞]]></name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title><![CDATA[keepalived+nginx 实现集群前端高可用]]></title>
-    <link href="http://mbnow.tk/2016/01/27/keepalived-nginx/"/>
-    <id>http://mbnow.tk/2016/01/27/keepalived-nginx/</id>
+    <link href="http://iter.tk/2016/01/27/keepalived-nginx/"/>
+    <id>http://iter.tk/2016/01/27/keepalived-nginx/</id>
     <published>2016-01-27T07:27:12.000Z</published>
     <updated>2016-01-28T09:28:58.000Z</updated>
     <content type="html"><![CDATA[<p>公司系统要实现高可用，避免单点故障，所以计划使用 Keepalived 工具来实现 nginx 的高可用（High Avaiability），达到一台nginx入口服务器宕机，另一台备用机自动接管服务的效果。<a id="more"></a>（nginx做反向代理，实现后端应用服务器的负载均衡）。</p>
@@ -41,8 +41,8 @@
   
   <entry>
     <title><![CDATA[Navicat for Oracle 创建表空间、用户、权限赋予]]></title>
-    <link href="http://mbnow.tk/2015/11/23/navicat-oracle-createdb/"/>
-    <id>http://mbnow.tk/2015/11/23/navicat-oracle-createdb/</id>
+    <link href="http://iter.tk/2015/11/23/navicat-oracle-createdb/"/>
+    <id>http://iter.tk/2015/11/23/navicat-oracle-createdb/</id>
     <published>2015-11-23T07:57:53.000Z</published>
     <updated>2015-11-24T04:01:07.000Z</updated>
     <content type="html"><![CDATA[<p><strong>Navicat for Oracle</strong>是有关Oracle数据库的客户端工具。通过这个客户端，我们可以以图形方式对Oracle数据库进行操作。下面我们介绍如何利用它创建表空间、用户，并且为用户赋予相关权限。<a id="more"></a></p>
@@ -59,14 +59,14 @@
     
     </summary>
     
-      <category term="数据存储" scheme="http://mbnow.tk/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/"/>
+      <category term="数据存储" scheme="http://iter.tk/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Net-Speeder为搬瓦工(OpenVZ)加速]]></title>
-    <link href="http://mbnow.tk/2015/06/12/fq-speed/"/>
-    <id>http://mbnow.tk/2015/06/12/fq-speed/</id>
+    <link href="http://iter.tk/2015/06/12/fq-speed/"/>
+    <id>http://iter.tk/2015/06/12/fq-speed/</id>
     <published>2015-06-12T03:47:07.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>为了工作上访问google，购买了一个搬瓦工的$3.99/年的小VPS，服务器一直都很稳定，关键是被墙的厉害，而且出口带宽被限制。使用Net-Speeder可以为OpenVZ类型的VPS加速，实测搬瓦工有效。<a id="more"></a></p>
@@ -90,16 +90,16 @@
     
     </summary>
     
-      <category term="网络" scheme="http://mbnow.tk/tags/%E7%BD%91%E7%BB%9C/"/>
+      <category term="网络" scheme="http://iter.tk/tags/%E7%BD%91%E7%BB%9C/"/>
     
-      <category term="IT杂谈" scheme="http://mbnow.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
+      <category term="IT杂谈" scheme="http://iter.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[SVN强制要求提交代码注释]]></title>
-    <link href="http://mbnow.tk/2015/05/11/svn-remark/"/>
-    <id>http://mbnow.tk/2015/05/11/svn-remark/</id>
+    <link href="http://iter.tk/2015/05/11/svn-remark/"/>
+    <id>http://iter.tk/2015/05/11/svn-remark/</id>
     <published>2015-05-11T02:48:16.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>不少开发员提交修改的时候都不写注释，导致查看历史时很费劲，也不符合规范。有的公司要求每次提交修改时都写上bug号或者任务描述，那么如何在工具上防止开发人员们不写注释呢？<a id="more"></a></p>
@@ -114,16 +114,16 @@
     
     </summary>
     
-      <category term="IT杂谈" scheme="http://mbnow.tk/tags/IT%E6%9D%82%E8%B0%88/"/>
+      <category term="IT杂谈" scheme="http://iter.tk/tags/IT%E6%9D%82%E8%B0%88/"/>
     
-      <category term="IT杂谈" scheme="http://mbnow.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
+      <category term="IT杂谈" scheme="http://iter.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[常用的chrome插件]]></title>
-    <link href="http://mbnow.tk/2014/12/05/chrome-plugin/"/>
-    <id>http://mbnow.tk/2014/12/05/chrome-plugin/</id>
+    <link href="http://iter.tk/2014/12/05/chrome-plugin/"/>
+    <id>http://iter.tk/2014/12/05/chrome-plugin/</id>
     <published>2014-12-05T09:23:41.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>工作中使用chrome较多，主要是依赖与它的强大的可调试功能和强大的插件库，现对我常用的chrome插件做个整理。<a id="more"></a></p>
@@ -142,14 +142,14 @@
     
     </summary>
     
-      <category term="IT杂谈" scheme="http://mbnow.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
+      <category term="IT杂谈" scheme="http://iter.tk/categories/IT%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ngrok：微信公众号接口本地调试]]></title>
-    <link href="http://mbnow.tk/2014/12/05/ngrok/"/>
-    <id>http://mbnow.tk/2014/12/05/ngrok/</id>
+    <link href="http://iter.tk/2014/12/05/ngrok/"/>
+    <id>http://iter.tk/2014/12/05/ngrok/</id>
     <published>2014-12-05T07:39:37.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>在日常软件开发过程中，有的时候需要将本地（localhost、127.0.0.1）的Web服务通过公网提供给其他人使用或者演示，或者是某些特殊应用需要外网IP地址（譬如微信公众号接口开发）。常用的方法配置外网的方式都比较复杂或者成本较高，<strong>ngrok</strong>是一种简单易用的代理方案，能够在开发测试中简化外网的访问配置。<a id="more"></a></p>
@@ -167,16 +167,16 @@
     
     </summary>
     
-      <category term="微信开发" scheme="http://mbnow.tk/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+      <category term="微信开发" scheme="http://iter.tk/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
     
-      <category term="微信开发" scheme="http://mbnow.tk/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+      <category term="微信开发" scheme="http://iter.tk/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[webservice接口调用日志：（三）注解生成接口调用日志]]></title>
-    <link href="http://mbnow.tk/2014/05/07/interface-log-3/"/>
-    <id>http://mbnow.tk/2014/05/07/interface-log-3/</id>
+    <link href="http://iter.tk/2014/05/07/interface-log-3/"/>
+    <id>http://iter.tk/2014/05/07/interface-log-3/</id>
     <published>2014-05-07T06:17:07.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>考虑到调用日志的记录要兼顾灵活性和改造复杂度。采用了注解的方式来实现，只要将注解添加到想要记录日志的方法体上就可以实现操作日志的记录。<a id="more"></a></p>
@@ -204,16 +204,16 @@
     
     </summary>
     
-      <category term="log4j，日志" scheme="http://mbnow.tk/tags/log4j%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
+      <category term="log4j，日志" scheme="http://iter.tk/tags/log4j%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
     
-      <category term="Java" scheme="http://mbnow.tk/categories/Java/"/>
+      <category term="Java" scheme="http://iter.tk/categories/Java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[webservice接口调用日志：（二）log4j生成单独日志文件]]></title>
-    <link href="http://mbnow.tk/2014/05/07/interface-log-2/"/>
-    <id>http://mbnow.tk/2014/05/07/interface-log-2/</id>
+    <link href="http://iter.tk/2014/05/07/interface-log-2/"/>
+    <id>http://iter.tk/2014/05/07/interface-log-2/</id>
     <published>2014-05-07T06:17:07.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p><code>DailyRollingFileAppender</code>是日志记录软件包Log4J中的一个<code>Appender</code>，它能够按一定的频度滚动日志记录文件，利用此Appender，我们可以按天生成一个接口调用日志文件。<a id="more"></a></p>
@@ -236,16 +236,16 @@
     
     </summary>
     
-      <category term="log4j，日志" scheme="http://mbnow.tk/tags/log4j%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
+      <category term="log4j，日志" scheme="http://iter.tk/tags/log4j%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
     
-      <category term="Java" scheme="http://mbnow.tk/categories/Java/"/>
+      <category term="Java" scheme="http://iter.tk/categories/Java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[webservice接口调用日志：（一）日志生成方案]]></title>
-    <link href="http://mbnow.tk/2014/05/07/interface-log-1/"/>
-    <id>http://mbnow.tk/2014/05/07/interface-log-1/</id>
+    <link href="http://iter.tk/2014/05/07/interface-log-1/"/>
+    <id>http://iter.tk/2014/05/07/interface-log-1/</id>
     <published>2014-05-07T06:17:07.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>公司存在各种各样的业务系统，不仅系统采用开发语言不一样，部署及运维方式也存在多样性。</p>
@@ -265,16 +265,16 @@
     
     </summary>
     
-      <category term="接口，日志" scheme="http://mbnow.tk/tags/%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
+      <category term="接口，日志" scheme="http://iter.tk/tags/%E6%8E%A5%E5%8F%A3%EF%BC%8C%E6%97%A5%E5%BF%97/"/>
     
-      <category term="Java" scheme="http://mbnow.tk/categories/Java/"/>
+      <category term="Java" scheme="http://iter.tk/categories/Java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Hello World! hexo!]]></title>
-    <link href="http://mbnow.tk/2014/04/26/hello-world/"/>
-    <id>http://mbnow.tk/2014/04/26/hello-world/</id>
+    <link href="http://iter.tk/2014/04/26/hello-world/"/>
+    <id>http://iter.tk/2014/04/26/hello-world/</id>
     <published>2014-04-26T15:16:58.000Z</published>
     <updated>2015-11-12T03:41:36.000Z</updated>
     <content type="html"><![CDATA[<p>欢迎来到白云飞的blog，本博客采用<a href="http://hexo.io" target="_blank" rel="external">Hexo</a>！<a id="more"></a></p>
@@ -288,7 +288,7 @@
     
     </summary>
     
-      <category term="生活" scheme="http://mbnow.tk/categories/%E7%94%9F%E6%B4%BB/"/>
+      <category term="生活" scheme="http://iter.tk/categories/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
